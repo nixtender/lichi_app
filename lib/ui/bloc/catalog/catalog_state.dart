@@ -7,9 +7,9 @@ class CatalogEmptyState extends CatalogState {}
 class CatalogLoadingState extends CatalogState {}
 
 class CatalogLoadedState extends CatalogState {
-  final Product product;
+  final List<Product> products;
 
-  CatalogLoadedState({required this.product});
+  CatalogLoadedState({required this.products});
 }
 
 class CatalogErrorState extends CatalogState {}

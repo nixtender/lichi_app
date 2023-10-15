@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:lichi_app/const/my_string.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_bloc.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_event.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_state.dart';
+import 'package:lichi_app/ui/widgets/product_item.dart';
 
 class CatalogPage extends StatelessWidget {
   @override
@@ -156,18 +158,24 @@ class CatalogPage extends StatelessWidget {
                         return Text("Empty");
                       }
                       if (state is CatalogLoadedState) {
-                        return Column(
-                          children: [
-                            Text(state.product.id.toString()),
-                            Text(state.product.name),
-                            Text(state.product.price.toString()),
-                            Text(state.product.description),
-                            Text(state.product.current.name),
-                            Text(state.product.current.value),
-                            Text(state.product.other[0].name),
-                            Text(state.product.other[0].value),
-                            Text(state.product.photos[0].big),
-                          ],
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: GridView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: ((_, index) {
+                              return ProductItem(
+                                  product: state.products[index]);
+                            }),
+                            itemCount: state.products.length,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 0.45,
+                              crossAxisSpacing: 6,
+                              mainAxisSpacing: 5,
+                            ),
+                          ),
                         );
                       }
                       return const SizedBox();
