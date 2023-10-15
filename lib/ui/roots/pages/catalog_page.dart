@@ -147,14 +147,33 @@ class CatalogPage extends StatelessWidget {
               ),
             ),
             BlocProvider(
-              create: (context) => CatalogBloc(CatalogEmptyState()),
-              child: BlocBuilder<CatalogBloc, CatalogState>(
-                builder: (context, state) {
+                create: (context) => CatalogBloc(CatalogEmptyState()),
+                child: Builder(builder: ((context) {
                   context.read<CatalogBloc>().add(CatalogLoadingEvent());
-                  return const SizedBox();
-                },
-              ),
-            ),
+                  return BlocBuilder<CatalogBloc, CatalogState>(
+                    builder: (context, state) {
+                      if (state is CatalogEmptyState) {
+                        return Text("Empty");
+                      }
+                      if (state is CatalogLoadedState) {
+                        return Column(
+                          children: [
+                            Text(state.product.id.toString()),
+                            Text(state.product.name),
+                            Text(state.product.price.toString()),
+                            Text(state.product.description),
+                            Text(state.product.current.name),
+                            Text(state.product.current.value),
+                            Text(state.product.other[0].name),
+                            Text(state.product.other[0].value),
+                            Text(state.product.photos[0].big),
+                          ],
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  );
+                }))),
           ],
         ),
       ),
