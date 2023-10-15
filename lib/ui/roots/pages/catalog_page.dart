@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/const/my_string.dart';
+import 'package:lichi_app/ui/bloc/catalog/catalog_bloc.dart';
+import 'package:lichi_app/ui/bloc/catalog/catalog_event.dart';
+import 'package:lichi_app/ui/bloc/catalog/catalog_state.dart';
 
 class CatalogPage extends StatelessWidget {
   @override
@@ -121,7 +125,36 @@ class CatalogPage extends StatelessWidget {
                   // ElevatedButton(onPressed: onPressed, child: child),
                 ],
               ),
-            )
+            ),
+            GestureDetector(
+              onTap: () {},
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 145,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Платья  ",
+                      style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Image.asset("assets/icons/expand_more_black.png"),
+                  ],
+                ),
+              ),
+            ),
+            BlocProvider(
+              create: (context) => CatalogBloc(CatalogEmptyState()),
+              child: BlocBuilder<CatalogBloc, CatalogState>(
+                builder: (context, state) {
+                  context.read<CatalogBloc>().add(CatalogLoadingEvent());
+                  return const SizedBox();
+                },
+              ),
+            ),
           ],
         ),
       ),
