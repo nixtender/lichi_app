@@ -1,5 +1,3 @@
-import 'package:lichi_app/domain/models/product.dart';
-
 import '../../internal/dependencies/repository_module.dart';
 import '../repository/api_repository.dart';
 

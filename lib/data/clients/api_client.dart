@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:lichi_app/domain/models/product.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'api_client.g.dart';

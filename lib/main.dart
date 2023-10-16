@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/roots/pages/catalog_page.dart';
 
 void main() {
@@ -17,11 +18,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.light;
+  final _appRouter = AppRouter();
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Flutter Demo',
+      routerConfig: _appRouter.config(),
       theme: ThemeData(
           //primarySwatch: Colors.blue,
           textButtonTheme: TextButtonThemeData(
@@ -30,7 +33,7 @@ class _MyAppState extends State<MyApp> {
                   foregroundColor: Colors.black))),
       darkTheme: ThemeData.dark(),
       themeMode: _themeMode,
-      home: CatalogPage(),
+      // home: CatalogPage(),
     );
   }
 

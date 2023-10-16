@@ -1,5 +1,4 @@
 import 'package:lichi_app/data/clients/api_client.dart';
-import 'package:lichi_app/domain/models/product.dart';
 import 'package:lichi_app/domain/repository/api_repository.dart';
 
 class ApiDataRepository extends ApiRepository {

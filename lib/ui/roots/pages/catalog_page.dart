@@ -1,11 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/const/my_string.dart';
+import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_bloc.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_event.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_state.dart';
+import 'package:lichi_app/ui/roots/pages/product_page.dart';
 import 'package:lichi_app/ui/widgets/product_item.dart';
 
+@RoutePage()
 class CatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -180,7 +184,10 @@ class CatalogPage extends StatelessWidget {
                             shrinkWrap: true,
                             itemBuilder: ((_, index) {
                               return GestureDetector(
-                                onTap: () {},
+                                onTap: () {
+                                  AutoRouter.of(context).push(ProductRoute(
+                                      product: state.products[index]));
+                                },
                                 child:
                                     ProductItem(product: state.products[index]),
                               );

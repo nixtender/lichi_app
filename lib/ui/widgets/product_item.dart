@@ -7,7 +7,7 @@ class ProductItem extends StatelessWidget {
   final Product product;
   List<String> allColors = <String>[];
 
-  ProductItem({required this.product}) {
+  ProductItem({super.key, required this.product}) {
     allColors.add(product.current.value);
     product.other.forEach((element) {
       allColors.add(element.value);
