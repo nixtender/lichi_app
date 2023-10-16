@@ -13,6 +13,7 @@ import 'package:lichi_app/ui/widgets/product_item.dart';
 class CatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    context.read<CatalogBloc>().add(CatalogLoadingEvent());
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -35,28 +36,28 @@ class CatalogPage extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  Container(
-                    width: 78,
-                    height: 45,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(30)),
-                      color: Colors.black,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          "0",
-                          style: TextStyle(
-                              fontFamily: 'Rubik',
-                              color: Colors.white,
-                              fontWeight: FontWeight.w400,
-                              fontSize: 21),
-                        ),
-                        Image.asset("assets/icons/basket.png"),
-                      ],
-                    ),
-                  )
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black,
+                          fixedSize: Size(78, 45),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          )),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Text(
+                            "0",
+                            style: TextStyle(
+                                fontFamily: 'Rubik',
+                                color: Colors.white,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 21),
+                          ),
+                          Image.asset("assets/icons/basket.png"),
+                        ],
+                      )),
                 ],
               ),
             ),
@@ -150,63 +151,56 @@ class CatalogPage extends StatelessWidget {
                 ),
               ),
             ),
-            BlocProvider(
-                create: (context) => CatalogBloc(CatalogEmptyState()),
-                child: Builder(builder: ((context) {
-                  context.read<CatalogBloc>().add(CatalogLoadingEvent());
-                  return BlocBuilder<CatalogBloc, CatalogState>(
-                    builder: (context, state) {
-                      if (state is CatalogEmptyState) {
-                        return Container(
-                          alignment: Alignment.center,
-                          child: Text(
-                            EMPTY_CLOTH,
-                            style: TextStyle(
-                                fontFamily: 'OpenSans',
-                                fontSize: 13,
-                                fontWeight: FontWeight.w300),
-                            textAlign: TextAlign.center,
-                          ),
-                        );
-                      }
-                      if (state is CatalogLoadingState) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Color(0xFFF6F6F6),
-                          ),
-                        );
-                      }
-                      if (state is CatalogLoadedState) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 5),
-                          child: GridView.builder(
-                            physics: NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: ((_, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  AutoRouter.of(context).push(ProductRoute(
-                                      product: state.products[index]));
-                                },
-                                child:
-                                    ProductItem(product: state.products[index]),
-                              );
-                            }),
-                            itemCount: state.products.length,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 0.45,
-                              crossAxisSpacing: 6,
-                              mainAxisSpacing: 5,
-                            ),
-                          ),
-                        );
-                      }
-                      return const SizedBox();
-                    },
+            BlocBuilder<CatalogBloc, CatalogState>(
+              builder: (context, state) {
+                if (state is CatalogEmptyState) {
+                  return Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      EMPTY_CLOTH,
+                      style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 13,
+                          fontWeight: FontWeight.w300),
+                      textAlign: TextAlign.center,
+                    ),
                   );
-                }))),
+                }
+                if (state is CatalogLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: Color(0xFFF6F6F6),
+                    ),
+                  );
+                }
+                if (state is CatalogLoadedState) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: ((_, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            AutoRouter.of(context).push(
+                                ProductRoute(product: state.products[index]));
+                          },
+                          child: ProductItem(product: state.products[index]),
+                        );
+                      }),
+                      itemCount: state.products.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.45,
+                        crossAxisSpacing: 6,
+                        mainAxisSpacing: 5,
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox();
+              },
+            ),
           ],
         ),
       ),
