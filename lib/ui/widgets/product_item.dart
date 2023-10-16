@@ -20,16 +20,18 @@ class ProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CachedNetworkImage(
-          placeholder: (context, url) => CircularProgressIndicator(),
+          placeholder: (context, url) => Container(
+            child: SizedBox(),
+          ),
           width: MediaQuery.of(context).size.width,
-          height: 250,
+          height: 260,
           imageUrl: product.photos[0].big,
           imageBuilder: (_, imageProvider) => Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+              borderRadius: BorderRadius.all(Radius.circular(15)),
               image: DecorationImage(
                 image: imageProvider,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.cover,
               ),
             ),
           ),

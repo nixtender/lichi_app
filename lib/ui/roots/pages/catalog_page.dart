@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_layout_grid/flutter_layout_grid.dart';
 import 'package:lichi_app/const/my_string.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_bloc.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_event.dart';
@@ -79,7 +78,6 @@ class CatalogPage extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 5),
               child: Row(
                 children: [
-                  // ElevatedButton(onPressed: () {}, child: ),
                   Expanded(
                     child: TextButton.icon(
                       onPressed: () {},
@@ -155,7 +153,24 @@ class CatalogPage extends StatelessWidget {
                   return BlocBuilder<CatalogBloc, CatalogState>(
                     builder: (context, state) {
                       if (state is CatalogEmptyState) {
-                        return Text("Empty");
+                        return Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            EMPTY_CLOTH,
+                            style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 13,
+                                fontWeight: FontWeight.w300),
+                            textAlign: TextAlign.center,
+                          ),
+                        );
+                      }
+                      if (state is CatalogLoadingState) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xFFF6F6F6),
+                          ),
+                        );
                       }
                       if (state is CatalogLoadedState) {
                         return Padding(
@@ -164,8 +179,11 @@ class CatalogPage extends StatelessWidget {
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: ((_, index) {
-                              return ProductItem(
-                                  product: state.products[index]);
+                              return GestureDetector(
+                                onTap: () {},
+                                child:
+                                    ProductItem(product: state.products[index]),
+                              );
                             }),
                             itemCount: state.products.length,
                             gridDelegate:
