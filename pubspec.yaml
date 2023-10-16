@@ -78,6 +78,7 @@ flutter:
     - assets/icons/moon_black.png
     - assets/icons/sun_black.png
     - assets/icons/expand_more_black.png
+    - assets/db_init.sql
 
   # To add assets to your application, add an assets section, like this:
   # assets:

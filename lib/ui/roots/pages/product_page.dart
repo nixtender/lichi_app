@@ -1,14 +1,19 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/domain/models/product.dart';
+import 'package:lichi_app/domain/models/product_base.dart';
 import 'package:lichi_app/internal/hex_color.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
 
 @RoutePage()
 class ProductPage extends StatelessWidget {
   final Product product;
   List<String> allColors = <String>[];
+  final DataService _dataService = DataService();
 
   ProductPage({super.key, required this.product}) {
     allColors.add(product.current.value);
@@ -91,7 +96,28 @@ class ProductPage extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () async {
+                ProductBase productBase = ProductBase(
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    description: product.description,
+                    currentValueColor: product.current.value,
+                    photo: product.photos[0].big,
+                    count: 1);
+
+                List<ProductBase> prB = context
+                    .read<BasketBloc>()
+                    .products
+                    .where((element) => element.id == productBase.id)
+                    .toList();
+                if (prB.isNotEmpty) {
+                  productBase.count = prB.first.count + 1;
+                } else {
+                  context.read<BasketBloc>().products.add(productBase);
+                }
+                await _dataService.cuProduct(productBase);
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(500, 71),
                 shape: RoundedRectangleBorder(

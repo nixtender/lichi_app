@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    BasketRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: BasketPage(),
+      );
+    },
     CatalogRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -32,6 +38,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [BasketPage]
+class BasketRoute extends PageRouteInfo<void> {
+  const BasketRoute({List<PageRouteInfo>? children})
+      : super(
+          BasketRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'BasketRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
