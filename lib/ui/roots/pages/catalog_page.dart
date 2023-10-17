@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/const/my_string.dart';
 import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/internal/transform_product.dart';
+import 'package:lichi_app/main.dart';
 import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_event.dart';
@@ -75,7 +76,6 @@ class CatalogPage extends StatelessWidget {
                             AutoRouter.of(context).push(BasketRoute());
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.black,
                               fixedSize: Size(78, 45),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30),
@@ -87,11 +87,13 @@ class CatalogPage extends StatelessWidget {
                                 count.toString(),
                                 style: TextStyle(
                                     fontFamily: 'Rubik',
-                                    color: Colors.white,
                                     fontWeight: FontWeight.w400,
                                     fontSize: 21),
                               ),
-                              Image.asset("assets/icons/basket.png"),
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Image.asset("assets/icons/basket.png")
+                                  : Image.asset(
+                                      "assets/icons/basket_black.png"),
                             ],
                           ));
                     },
@@ -123,7 +125,9 @@ class CatalogPage extends StatelessWidget {
                 children: [
                   Expanded(
                     child: TextButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        MyApp.of(context).changeTheme(ThemeMode.dark);
+                      },
                       style: ButtonStyle(
                           minimumSize: MaterialStateProperty.all(
                               Size(MediaQuery.of(context).size.width / 2, 78)),
@@ -132,7 +136,14 @@ class CatalogPage extends StatelessWidget {
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ))),
-                      icon: Image.asset("assets/icons/moon_black.png"),
+                      icon: Theme.of(context).brightness == Brightness.dark
+                          ? Image.asset(
+                              "assets/icons/moon_black.png",
+                              color: Colors.white,
+                            )
+                          : Image.asset(
+                              "assets/icons/moon_black.png",
+                            ),
                       label: Text(
                         "   Темная тема",
                         style: TextStyle(
@@ -147,7 +158,9 @@ class CatalogPage extends StatelessWidget {
                   ),
                   Expanded(
                       child: TextButton.icon(
-                          onPressed: () {},
+                          onPressed: () {
+                            MyApp.of(context).changeTheme(ThemeMode.light);
+                          },
                           style: ButtonStyle(
                               minimumSize: MaterialStateProperty.all(Size(
                                   MediaQuery.of(context).size.width / 2, 78)),
@@ -157,7 +170,14 @@ class CatalogPage extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(15)),
                               ))),
-                          icon: Image.asset("assets/icons/sun_black.png"),
+                          icon: Theme.of(context).brightness == Brightness.dark
+                              ? Image.asset(
+                                  "assets/icons/sun_black.png",
+                                  color: Colors.white,
+                                )
+                              : Image.asset(
+                                  "assets/icons/sun_black.png",
+                                ),
                           label: Text(
                             "   Светлая тема",
                             style: TextStyle(
@@ -239,7 +259,10 @@ class CatalogPage extends StatelessWidget {
                       Center(
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: Colors.black,
+                          color:
+                              Theme.of(context).brightness == Brightness.light
+                                  ? Colors.black
+                                  : Colors.white,
                         ),
                       ),
                     ],

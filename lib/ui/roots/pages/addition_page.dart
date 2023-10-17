@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/domain/models/product_base.dart';
 import 'package:lichi_app/router/router.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_event.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_state.dart';
 
 @RoutePage()
 class AdditionPage extends StatelessWidget {
@@ -75,7 +79,6 @@ class AdditionPage extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
                   ),
-                  backgroundColor: Colors.black,
                 ),
                 child: Text(
                   "Перейти в корзину",
@@ -87,7 +90,10 @@ class AdditionPage extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => AutoRouter.of(context).pop(),
+              onTap: () {
+                context.read<BasketBloc>().add(BasketLoadingEvent());
+                AutoRouter.of(context).pop();
+              },
               child: Container(
                 alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width,

@@ -225,7 +225,6 @@ class ProductPage extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40),
                 ),
-                backgroundColor: Colors.black,
               ),
               child: Text(
                 "Добавить в корзину",

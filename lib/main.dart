@@ -45,17 +45,35 @@ class _MyAppState extends State<MyApp> {
               //primarySwatch: Colors.blue,
               appBarTheme: AppBarTheme(
                   foregroundColor: Colors.black,
-                  backgroundColor: Colors.white,
+                  backgroundColor: Colors.transparent,
                   titleTextStyle: TextStyle(color: Colors.black)),
               textButtonTheme: TextButtonThemeData(
                   style: TextButton.styleFrom(
-                      backgroundColor: Color(0xFFF6F6F6),
+                      backgroundColor: Color(0xFFF0F0F0),
+                      foregroundColor: Colors.black)),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      foregroundColor: Colors.white))),
+          darkTheme: ThemeData.dark().copyWith(
+              appBarTheme: AppBarTheme(
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.transparent,
+                  titleTextStyle: TextStyle(color: Colors.white)),
+              textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                      backgroundColor: Color(0xFF767676),
+                      foregroundColor: Colors.white)),
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
                       foregroundColor: Colors.black))),
-          darkTheme: ThemeData.dark(),
           themeMode: _themeMode,
           // home: CatalogPage(),
         ));
   }
+
+  ThemeMode get themeMode => _themeMode;
 
   void changeTheme(ThemeMode themeMode) {
     setState(() {

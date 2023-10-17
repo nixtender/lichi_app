@@ -147,11 +147,9 @@ class _PurchaseItemState extends State<PurchaseItem> {
                             });
                           },
                           style: TextButton.styleFrom(
-                              backgroundColor: Color(0xFFF0F0F0),
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              )),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          )),
                           child: Image.asset('assets/icons/remove.png')),
                     ),
                     Text(
@@ -176,11 +174,9 @@ class _PurchaseItemState extends State<PurchaseItem> {
                             });
                           },
                           style: TextButton.styleFrom(
-                              backgroundColor: Color(0xFFF0F0F0),
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              )),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                          )),
                           child: Image.asset('assets/icons/add.png')),
                     )
                   ],
