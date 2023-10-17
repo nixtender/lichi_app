@@ -15,6 +15,9 @@ class BasketPage extends StatelessWidget {
     context.read<BasketBloc>().add(BasketLoadingEvent());
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () => AutoRouter.of(context).pop()),
         elevation: 0,
         centerTitle: true,
         title: Text(
@@ -68,7 +71,7 @@ class BasketPage extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                   alignment: Alignment.centerLeft,
                   width: MediaQuery.of(context).size.width,
                   child: Column(

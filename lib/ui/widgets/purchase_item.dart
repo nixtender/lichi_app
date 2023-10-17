@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/domain/models/product_base.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_event.dart';
 
 class PurchaseItem extends StatefulWidget {
   ProductBase productBase;
@@ -13,6 +17,8 @@ class PurchaseItem extends StatefulWidget {
 }
 
 class _PurchaseItemState extends State<PurchaseItem> {
+  final DataService dataService = DataService();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -89,7 +95,16 @@ class _PurchaseItemState extends State<PurchaseItem> {
                     height: 35,
                     width: 35,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          widget.productBase.count--;
+                          await dataService
+                              .cuProduct(widget.productBase)
+                              .then((value) {
+                            context
+                                .read<BasketBloc>()
+                                .add(BasketLoadingEvent());
+                          });
+                        },
                         style: TextButton.styleFrom(
                             backgroundColor: Color(0xFFF0F0F0),
                             shape: RoundedRectangleBorder(
@@ -109,7 +124,16 @@ class _PurchaseItemState extends State<PurchaseItem> {
                     height: 35,
                     width: 35,
                     child: TextButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          widget.productBase.count++;
+                          await dataService
+                              .cuProduct(widget.productBase)
+                              .then((value) {
+                            context
+                                .read<BasketBloc>()
+                                .add(BasketLoadingEvent());
+                          });
+                        },
                         style: TextButton.styleFrom(
                             backgroundColor: Color(0xFFF0F0F0),
                             shape: RoundedRectangleBorder(

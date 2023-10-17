@@ -5,8 +5,9 @@ class DataService {
   Future cuProduct(ProductBase productBase) async {
     if (productBase.count == 0) {
       await DB.instance.delete<ProductBase>(productBase);
+    } else {
+      await DB.instance.createUpdate(productBase);
     }
-    await DB.instance.createUpdate(productBase);
   }
 
   Future<List<ProductBase>> getProducts() async {
