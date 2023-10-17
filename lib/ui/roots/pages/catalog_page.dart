@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/const/my_string.dart';
 import 'package:lichi_app/data/services/data_service.dart';
+import 'package:lichi_app/internal/transform_product.dart';
 import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_event.dart';
@@ -151,7 +152,9 @@ class CatalogPage extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                TransformProduct.selectWid(context);
+              },
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 145,

@@ -8,3 +8,5 @@ const String detailUrl = "https://api.lichi.com/product/get_product_detail";
 const String EMPTY_CLOTH =
     "Товары в данной категории отсутствуют, \nпожалуйста, выберите другую : (";
 const String EMPTY_BASKET = "Корзина пустая\nДобавьте все что вы хотите.";
+const String NOVELTY = "Новинки";
+const String DRESSES = "Платья";
