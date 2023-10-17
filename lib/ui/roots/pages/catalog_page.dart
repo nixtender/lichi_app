@@ -288,7 +288,13 @@ class CatalogPage extends StatelessWidget {
                                     fontSize: 13,
                                     fontWeight: FontWeight.w600),
                               ),
-                              Image.asset("assets/icons/expand_more_black.png"),
+                              Image.asset(
+                                "assets/icons/expand_more_black.png",
+                                color: Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : null,
+                              ),
                             ],
                           ),
                         ),
