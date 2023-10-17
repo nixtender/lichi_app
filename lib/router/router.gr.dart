@@ -15,6 +15,13 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AdditionRoute.name: (routeData) {
+      final args = routeData.argsAs<AdditionRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: AdditionPage(productBase: args.productBase),
+      );
+    },
     BasketRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -38,6 +45,35 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AdditionPage]
+class AdditionRoute extends PageRouteInfo<AdditionRouteArgs> {
+  AdditionRoute({
+    required ProductBase productBase,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AdditionRoute.name,
+          args: AdditionRouteArgs(productBase: productBase),
+          initialChildren: children,
+        );
+
+  static const String name = 'AdditionRoute';
+
+  static const PageInfo<AdditionRouteArgs> page =
+      PageInfo<AdditionRouteArgs>(name);
+}
+
+class AdditionRouteArgs {
+  const AdditionRouteArgs({required this.productBase});
+
+  final ProductBase productBase;
+
+  @override
+  String toString() {
+    return 'AdditionRouteArgs{productBase: $productBase}';
+  }
 }
 
 /// generated route for

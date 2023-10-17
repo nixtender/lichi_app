@@ -190,7 +190,9 @@ class ProductPage extends StatelessWidget {
                 } else {
                   context.read<BasketBloc>().products.add(productBase);
                 }
-                await _dataService.cuProduct(productBase);
+                await _dataService.cuProduct(productBase).then((value) =>
+                    AutoRouter.of(context)
+                        .push(AdditionRoute(productBase: productBase)));
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(500, 71),
