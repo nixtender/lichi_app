@@ -19,7 +19,7 @@ class CatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<BasketBloc>().add(BasketLoadingEvent());
-    context.read<CatalogBloc>().add(CatalogLoadingEvent());
+    context.read<CatalogBloc>().add(CatalogLoadingEvent(cloth: DRESSES));
 
     int count = 0;
     return Scaffold(
@@ -151,74 +151,133 @@ class CatalogPage extends StatelessWidget {
                 ],
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                TransformProduct.selectWid(context);
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 145,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Платья  ",
-                      style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    Image.asset("assets/icons/expand_more_black.png"),
-                  ],
-                ),
-              ),
-            ),
             BlocBuilder<CatalogBloc, CatalogState>(
               builder: (context, state) {
+                String category = context.read<CatalogBloc>().category;
                 if (state is CatalogEmptyState) {
-                  return Container(
-                    alignment: Alignment.center,
-                    child: Text(
-                      EMPTY_CLOTH,
-                      style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          fontSize: 13,
-                          fontWeight: FontWeight.w300),
-                      textAlign: TextAlign.center,
-                    ),
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          TransformProduct.selectWid(context);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 145,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "$category  ",
+                                style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Image.asset("assets/icons/expand_more_black.png"),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          EMPTY_CLOTH,
+                          style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              fontSize: 13,
+                              fontWeight: FontWeight.w300),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
                   );
                 }
                 if (state is CatalogLoadingState) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      color: Colors.black,
-                    ),
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          TransformProduct.selectWid(context);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 145,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "$category  ",
+                                style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Image.asset("assets/icons/expand_more_black.png"),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
                   );
                 }
                 if (state is CatalogLoadedState) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 5),
-                    child: GridView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemBuilder: ((_, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            AutoRouter.of(context).push(
-                                ProductRoute(product: state.products[index]));
-                          },
-                          child: ProductItem(product: state.products[index]),
-                        );
-                      }),
-                      itemCount: state.products.length,
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.45,
-                        crossAxisSpacing: 6,
-                        mainAxisSpacing: 5,
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          TransformProduct.selectWid(context);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 145,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "$category  ",
+                                style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Image.asset("assets/icons/expand_more_black.png"),
+                            ],
+                          ),
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        child: GridView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: ((_, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                AutoRouter.of(context).push(ProductRoute(
+                                    product: state.products[index]));
+                              },
+                              child:
+                                  ProductItem(product: state.products[index]),
+                            );
+                          }),
+                          itemCount: state.products.length,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 0.45,
+                            crossAxisSpacing: 6,
+                            mainAxisSpacing: 5,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 }
                 return const SizedBox();
