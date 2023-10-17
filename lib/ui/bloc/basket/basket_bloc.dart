@@ -13,7 +13,11 @@ class BasketBloc extends Bloc<BasketEvent, BasketState> {
       (event, emit) async {
         emit(BasketLoadingState());
         products = await _dataService.getProducts();
-        emit(BasketLoadedState());
+        if (products.isNotEmpty) {
+          emit(BasketLoadedState());
+        } else {
+          emit(BasketEmptyState());
+        }
       },
     );
   }
