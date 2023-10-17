@@ -10,8 +10,9 @@ class ApiDataRepository extends ApiRepository {
           {required int shop,
           required int lang,
           required String category,
-          required int limit}) async =>
-      await _apiClient.getClothes(shop, lang, category, limit);
+          required int limit,
+          required int page}) async =>
+      await _apiClient.getClothes(shop, lang, category, limit, page);
 
   @override
   Future<dynamic> getSelectCloth(int shop, int lang, int id) async =>

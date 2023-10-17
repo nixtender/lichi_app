@@ -24,6 +24,7 @@ class _ApiClient implements ApiClient {
     lang,
     category,
     limit,
+    page,
   ) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
@@ -31,6 +32,7 @@ class _ApiClient implements ApiClient {
       r'lang': lang,
       r'category': category,
       r'limit': limit,
+      r'page': page,
     };
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};

@@ -7,3 +7,5 @@ class CatalogLoadingEvent extends CatalogEvent {
 
   CatalogLoadingEvent({required this.cloth});
 }
+
+class CatalogScrollEvent extends CatalogEvent {}

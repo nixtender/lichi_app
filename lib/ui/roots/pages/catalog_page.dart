@@ -16,16 +16,34 @@ import 'package:lichi_app/ui/widgets/product_item.dart';
 
 @RoutePage()
 class CatalogPage extends StatelessWidget {
+  final lvc = ScrollController();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     context.read<BasketBloc>().add(BasketLoadingEvent());
     context.read<CatalogBloc>().add(CatalogLoadingEvent(cloth: DRESSES));
-
+    lvc.addListener(() {
+      bool finishScroll = context.read<CatalogBloc>().finishScroll;
+      var max = lvc.position.maxScrollExtent;
+      var current = lvc.offset;
+      var percent = (current / max * 100);
+      if (percent > 90 && !finishScroll) {
+        if (!isLoading) {
+          isLoading = true;
+          Future.delayed(const Duration(seconds: 1)).then((value) async {
+            context.read<CatalogBloc>().add(CatalogScrollEvent());
+            isLoading = false;
+          });
+        }
+      }
+    });
     int count = 0;
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
         child: ListView(
+          controller: lvc,
           children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
