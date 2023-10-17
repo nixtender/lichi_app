@@ -19,21 +19,30 @@ class ProductItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        CachedNetworkImage(
-          placeholder: (context, url) => Container(
-            child: SizedBox(),
-          ),
-          width: MediaQuery.of(context).size.width,
+        Container(
           height: 260,
-          imageUrl: product.photos[0].big,
-          imageBuilder: (_, imageProvider) => Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(15)),
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
-            ),
+          child: PageView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (pageContext, pageIndex) {
+              return CachedNetworkImage(
+                placeholder: (context, url) => Container(
+                  child: SizedBox(),
+                ),
+                width: MediaQuery.of(context).size.width,
+                height: 260,
+                imageUrl: product.photos[pageIndex].big,
+                imageBuilder: (_, imageProvider) => Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              );
+            },
+            itemCount: product.photos.length,
           ),
         ),
         const SizedBox(

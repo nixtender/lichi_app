@@ -34,13 +34,22 @@ class ProductPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              CachedNetworkImage(
-                placeholder: (context, url) => Container(
-                  child: SizedBox(),
+              SizedBox(
+                height: 524,
+                child: PageView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (pageContext, pageIndex) {
+                    return CachedNetworkImage(
+                      placeholder: (context, url) => Container(
+                        child: SizedBox(),
+                      ),
+                      // width: MediaQuery.of(context).size.width,
+                      // height: 260,
+                      imageUrl: product.photos[pageIndex].big,
+                    );
+                  },
+                  itemCount: product.photos.length,
                 ),
-                // width: MediaQuery.of(context).size.width,
-                // height: 260,
-                imageUrl: product.photos[0].big,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 65),

@@ -7,6 +7,7 @@ import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/domain/models/product.dart';
 import 'package:lichi_app/domain/models/product_base.dart';
 import 'package:lichi_app/domain/usercases/get_clothes.dart';
+import 'package:lichi_app/internal/hex_color.dart';
 import 'package:lichi_app/internal/transform_product.dart';
 import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
@@ -43,22 +44,46 @@ class _PurchaseItemState extends State<PurchaseItem> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            CachedNetworkImage(
-              placeholder: (context, url) => Container(
-                child: SizedBox(),
-              ),
-              width: 135,
-              height: 180,
-              imageUrl: widget.productBase.photo,
-              imageBuilder: (_, imageProvider) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                  image: DecorationImage(
-                    image: imageProvider,
-                    fit: BoxFit.fitHeight,
+            Stack(
+              alignment: Alignment.bottomLeft,
+              children: [
+                CachedNetworkImage(
+                  placeholder: (context, url) => Container(
+                    child: SizedBox(),
+                  ),
+                  width: 135,
+                  height: 180,
+                  imageUrl: widget.productBase.photo,
+                  imageBuilder: (_, imageProvider) => Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      image: DecorationImage(
+                        image: imageProvider,
+                        fit: BoxFit.fitHeight,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                Container(
+                  margin: EdgeInsets.all(11),
+                  width: 24,
+                  height: 24,
+                  alignment: Alignment.center,
+                  decoration: ShapeDecoration(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      color: Color(0x77FFFFFF)),
+                  child: Container(
+                    width: 12,
+                    height: 12,
+                    decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        color: Color(HexColor.getIntColor(
+                            widget.productBase.currentValueColor))),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(
               width: 15,
