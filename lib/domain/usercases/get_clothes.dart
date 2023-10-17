@@ -10,4 +10,7 @@ class GetClothes {
           int shop, int lang, String category, int limit) async =>
       await _api.getClothes(
           shop: shop, lang: lang, category: category, limit: limit);
+
+  Future<dynamic> getSelectCloth(int shop, int lang, int id) async =>
+      await _api.getSelectCloth(shop, lang, id);
 }

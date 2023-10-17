@@ -7,7 +7,9 @@ import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/domain/models/product.dart';
 import 'package:lichi_app/domain/models/product_base.dart';
 import 'package:lichi_app/internal/hex_color.dart';
+import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_state.dart';
 
 @RoutePage()
 class ProductPage extends StatelessWidget {
@@ -24,17 +26,80 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int count = 0;
     return Scaffold(
       body: ListView(
+        padding: EdgeInsets.zero,
         shrinkWrap: true,
         children: [
-          CachedNetworkImage(
-            placeholder: (context, url) => Container(
-              child: SizedBox(),
-            ),
-            // width: MediaQuery.of(context).size.width,
-            // height: 260,
-            imageUrl: product.photos[0].big,
+          Stack(
+            children: [
+              CachedNetworkImage(
+                placeholder: (context, url) => Container(
+                  child: SizedBox(),
+                ),
+                // width: MediaQuery.of(context).size.width,
+                // height: 260,
+                imageUrl: product.photos[0].big,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 65),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    BlocBuilder<BasketBloc, BasketState>(
+                      builder: (context, state) {
+                        count = 0;
+                        context.read<BasketBloc>().products.forEach(
+                          (element) {
+                            count += element.count;
+                          },
+                        );
+                        return ElevatedButton(
+                            onPressed: () {
+                              AutoRouter.of(context).push(BasketRoute());
+                            },
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                fixedSize: Size(78, 45),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                )),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Image.asset("assets/icons/basket_black.png"),
+                                Text(
+                                  count.toString(),
+                                  style: TextStyle(
+                                      fontFamily: 'Rubik',
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 21),
+                                ),
+                              ],
+                            ));
+                      },
+                    ),
+                    SizedBox(
+                      height: 45,
+                      width: 45,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            AutoRouter.of(context).pop();
+                          },
+                          style: ElevatedButton.styleFrom(
+                              alignment: Alignment.center,
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(45),
+                              )),
+                          child: Image.asset('assets/icons/close_black.png')),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
           const SizedBox(
             height: 27,

@@ -4,4 +4,6 @@ abstract class ApiRepository {
       required int lang,
       required String category,
       required int limit});
+
+  Future<dynamic> getSelectCloth(int shop, int lang, int id);
 }

@@ -81,6 +81,7 @@ flutter:
     - assets/db_init.sql
     - assets/icons/add.png
     - assets/icons/remove.png
+    - assets/icons/close_black.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
