@@ -13,5 +13,6 @@ class AppRouter extends _$AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(page: CatalogRoute.page, path: '/'),
         AutoRoute(page: ProductRoute.page),
+        AutoRoute(page: BasketRoute.page),
       ];
 }

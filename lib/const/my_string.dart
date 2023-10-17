@@ -6,3 +6,4 @@ const String baseUrl =
     "https://api.lichi.com/category/get_category_product_list";
 const String EMPTY_CLOTH =
     "Товары в данной категории отсутствуют, \nпожалуйста, выберите другую : (";
+const String EMPTY_BASKET = "Корзина пустая\nДобавьте все что вы хотите.";

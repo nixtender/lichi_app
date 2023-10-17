@@ -8,4 +8,14 @@ class DataService {
     }
     await DB.instance.createUpdate(productBase);
   }
+
+  Future<List<ProductBase>> getProducts() async {
+    var res = <ProductBase>[];
+    var products = await DB.instance.getAll<ProductBase>();
+    for (var product in products) {
+      res.add(product);
+    }
+
+    return res;
+  }
 }

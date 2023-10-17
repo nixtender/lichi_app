@@ -2,7 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/const/my_string.dart';
+import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/router/router.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_event.dart';
+import 'package:lichi_app/ui/bloc/basket/basket_state.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_bloc.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_event.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_state.dart';
@@ -13,7 +17,10 @@ import 'package:lichi_app/ui/widgets/product_item.dart';
 class CatalogPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    context.read<BasketBloc>().add(BasketLoadingEvent());
     context.read<CatalogBloc>().add(CatalogLoadingEvent());
+
+    int count = 0;
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -36,28 +43,40 @@ class CatalogPage extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          fixedSize: Size(78, 45),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
-                          )),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Text(
-                            "0",
-                            style: TextStyle(
-                                fontFamily: 'Rubik',
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 21),
-                          ),
-                          Image.asset("assets/icons/basket.png"),
-                        ],
-                      )),
+                  BlocBuilder<BasketBloc, BasketState>(
+                    builder: (context, state) {
+                      count = 0;
+                      context.read<BasketBloc>().products.forEach(
+                        (element) {
+                          count += element.count;
+                        },
+                      );
+                      return ElevatedButton(
+                          onPressed: () {
+                            AutoRouter.of(context).push(BasketRoute());
+                          },
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.black,
+                              fixedSize: Size(78, 45),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30),
+                              )),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                count.toString(),
+                                style: TextStyle(
+                                    fontFamily: 'Rubik',
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 21),
+                              ),
+                              Image.asset("assets/icons/basket.png"),
+                            ],
+                          ));
+                    },
+                  ),
                 ],
               ),
             ),
@@ -169,7 +188,8 @@ class CatalogPage extends StatelessWidget {
                 if (state is CatalogLoadingState) {
                   return const Center(
                     child: CircularProgressIndicator(
-                      color: Color(0xFFF6F6F6),
+                      strokeWidth: 2,
+                      color: Colors.black,
                     ),
                   );
                 }

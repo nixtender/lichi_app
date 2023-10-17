@@ -43,7 +43,10 @@ class _MyAppState extends State<MyApp> {
           routerConfig: _appRouter.config(),
           theme: ThemeData(
               //primarySwatch: Colors.blue,
-              appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+              appBarTheme: AppBarTheme(
+                  foregroundColor: Colors.black,
+                  backgroundColor: Colors.white,
+                  titleTextStyle: TextStyle(color: Colors.black)),
               textButtonTheme: TextButtonThemeData(
                   style: TextButton.styleFrom(
                       backgroundColor: Color(0xFFF6F6F6),
