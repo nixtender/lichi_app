@@ -298,6 +298,65 @@ class CatalogPage extends StatelessWidget {
                     ],
                   );
                 }
+                if (state is CatalogErrorState) {
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          TransformProduct.selectWid(context);
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 145,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "$category  ",
+                                style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              Image.asset("assets/icons/expand_more_black.png"),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Text(
+                        ERROR_CLOTH,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 13,
+                            fontWeight: FontWeight.w300),
+                      ),
+                      const SizedBox(
+                        height: 150,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          context.read<CatalogBloc>().add(CatalogLoadingEvent(
+                              cloth: context.read<CatalogBloc>().cloth));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(10, 71),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          backgroundColor: Colors.black,
+                        ),
+                        child: Text(
+                          "Повторить",
+                          style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ],
+                  );
+                }
                 return const SizedBox();
               },
             ),

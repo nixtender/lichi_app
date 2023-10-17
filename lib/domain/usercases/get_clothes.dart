@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import '../../internal/dependencies/repository_module.dart';
 import '../repository/api_repository.dart';
 
@@ -7,10 +9,18 @@ class GetClothes {
   GetClothes();
 
   Future<dynamic> getClothes(
-          int shop, int lang, String category, int limit, int page) async =>
-      await _api.getClothes(
+      int shop, int lang, String category, int limit, int page) async {
+    try {
+      return await _api.getClothes(
           shop: shop, lang: lang, category: category, limit: limit, page: page);
+    } on DioError catch (e) {
+      print(e);
+      throw NoNetworkException();
+    }
+  }
 
   Future<dynamic> getSelectCloth(int shop, int lang, int id) async =>
       await _api.getSelectCloth(shop, lang, id);
 }
+
+class NoNetworkException implements Exception {}

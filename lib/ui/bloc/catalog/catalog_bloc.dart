@@ -19,29 +19,35 @@ class CatalogBloc extends Bloc<CatalogEvent, CatalogState> {
       emit(CatalogLoadingState());
       currentPage = 1;
       cloth = event.cloth;
-      var responcePrivate =
-          await apiService.getClothes(2, 1, cloth, 4, currentPage);
-      valueProducts = TransformProduct.transformListProduct(responcePrivate);
-      switch (cloth) {
-        case NOVELTY:
-          category = NOVELTY_RU;
-          break;
-        case DRESSES:
-          category = DRESSES_RU;
-          break;
-        case SKIRTS:
-          category = SKIRTS_RU;
-          break;
-        case SHOES:
-          category = SHOES_RU;
-          break;
-        default:
-          category = DRESSES_RU;
-      }
-      if (valueProducts.isEmpty) {
-        emit(CatalogEmptyState());
-      } else {
-        emit(CatalogLoadedState(products: valueProducts));
+      try {
+        var responcePrivate =
+            await apiService.getClothes(2, 1, cloth, 4, currentPage);
+        valueProducts = TransformProduct.transformListProduct(responcePrivate);
+        switch (cloth) {
+          case NOVELTY:
+            category = NOVELTY_RU;
+            break;
+          case DRESSES:
+            category = DRESSES_RU;
+            break;
+          case SKIRTS:
+            category = SKIRTS_RU;
+            break;
+          case SHOES:
+            category = SHOES_RU;
+            break;
+          default:
+            category = DRESSES_RU;
+        }
+        if (valueProducts.isEmpty) {
+          emit(CatalogEmptyState());
+        } else {
+          emit(CatalogLoadedState(products: valueProducts));
+        }
+      } on NoNetworkException {
+        emit(CatalogErrorState());
+      } catch (e) {
+        emit(CatalogErrorState());
       }
     });
     on<CatalogScrollEvent>(
