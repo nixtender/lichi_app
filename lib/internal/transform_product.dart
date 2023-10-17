@@ -35,7 +35,9 @@ class TransformProduct {
     showGeneralDialog(
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
       barrierDismissible: true,
-      barrierColor: const Color(0xFFF6F6F6).withOpacity(0.3),
+      barrierColor: Theme.of(context).brightness == Brightness.light
+          ? const Color(0xFFF6F6F6).withOpacity(0.3)
+          : const Color(0xFF161616).withOpacity(0.3),
       transitionDuration: const Duration(milliseconds: 400),
       context: context,
       pageBuilder: (_, __, ___) {
@@ -48,7 +50,9 @@ class TransformProduct {
                 height: MediaQuery.of(context).size.height * 0.45,
                 margin: const EdgeInsets.only(bottom: 50, left: 12, right: 12),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.white
+                      : Color(0xFF333333),
                   borderRadius: BorderRadius.circular(40),
                 ),
                 child: Column(

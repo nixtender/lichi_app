@@ -312,7 +312,7 @@ class CatalogPage extends StatelessWidget {
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            childAspectRatio: 0.45,
+                            childAspectRatio: 0.43,
                             crossAxisSpacing: 6,
                             mainAxisSpacing: 5,
                           ),
