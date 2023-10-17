@@ -49,6 +49,12 @@ class BasketPage extends StatelessWidget {
             );
           }
           if (state is BasketLoadedState) {
+            int sum = 0;
+            BB.products.forEach(
+              (element) {
+                sum += element.price * element.count;
+              },
+            );
             return Column(mainAxisSize: MainAxisSize.max, children: [
               Expanded(
                 flex: 5,
@@ -62,8 +68,30 @@ class BasketPage extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  color: Colors.black,
-                  child: SizedBox(),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  alignment: Alignment.centerLeft,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "К оплате",
+                          style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 14,
+                              fontWeight: FontWeight.w300),
+                        ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "${sum} руб.",
+                          style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 30,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ]),
                 ),
               )
             ]);
