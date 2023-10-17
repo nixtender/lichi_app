@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lichi_app/const/my_string.dart';
+import 'package:lichi_app/internal/space_price.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_event.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_state.dart';
@@ -88,7 +89,7 @@ class BasketPage extends StatelessWidget {
                           height: 5,
                         ),
                         Text(
-                          "${sum} руб.",
+                          "${SpacePrice.getSpacePrice(sum)} руб.",
                           style: TextStyle(
                               fontFamily: 'Rubik',
                               fontSize: 30,

@@ -7,6 +7,7 @@ import 'package:lichi_app/data/services/data_service.dart';
 import 'package:lichi_app/domain/models/product.dart';
 import 'package:lichi_app/domain/models/product_base.dart';
 import 'package:lichi_app/internal/hex_color.dart';
+import 'package:lichi_app/internal/space_price.dart';
 import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_state.dart';
@@ -182,7 +183,7 @@ class ProductPage extends StatelessWidget {
             height: 22,
           ),
           Text(
-            "${product.price} руб.",
+            "${SpacePrice.getSpacePrice(product.price)} руб.",
             style: TextStyle(
                 fontFamily: 'OpenSans',
                 fontSize: 16,

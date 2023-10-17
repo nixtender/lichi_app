@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lichi_app/domain/models/product.dart';
 import 'package:lichi_app/internal/hex_color.dart';
+import 'package:lichi_app/internal/space_price.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductItem extends StatelessWidget {
@@ -77,7 +78,7 @@ class ProductItem extends StatelessWidget {
           height: 17,
         ),
         Text(
-          "${product.price} руб.",
+          "${SpacePrice.getSpacePrice(product.price)} руб.",
           style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 16,

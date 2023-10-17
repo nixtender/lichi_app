@@ -8,6 +8,7 @@ import 'package:lichi_app/domain/models/product.dart';
 import 'package:lichi_app/domain/models/product_base.dart';
 import 'package:lichi_app/domain/usercases/get_clothes.dart';
 import 'package:lichi_app/internal/hex_color.dart';
+import 'package:lichi_app/internal/space_price.dart';
 import 'package:lichi_app/internal/transform_product.dart';
 import 'package:lichi_app/router/router.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
@@ -119,7 +120,7 @@ class _PurchaseItemState extends State<PurchaseItem> {
                   height: 25,
                 ),
                 Text(
-                  "${widget.productBase.price} руб.",
+                  "${SpacePrice.getSpacePrice(widget.productBase.price)} руб.",
                   style: TextStyle(
                       fontFamily: 'OpenSans',
                       fontSize: 16,
