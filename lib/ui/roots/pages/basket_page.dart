@@ -100,6 +100,50 @@ class BasketPage extends StatelessWidget {
               )
             ]);
           }
+          if (state is BasketErrorState) {
+            return Stack(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  alignment: Alignment.center,
+                  child: Text(
+                    ERROR_CLOTH,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: 'OpenSans',
+                        fontSize: 13,
+                        fontWeight: FontWeight.w300),
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  alignment: Alignment.bottomCenter,
+                  padding: EdgeInsets.all(50),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      context.read<BasketBloc>().add(BasketLoadingEvent());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(10, 71),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      backgroundColor: Colors.black,
+                    ),
+                    child: Text(
+                      "Повторить",
+                      style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                )
+              ],
+            );
+          }
           return const SizedBox();
         },
       ),

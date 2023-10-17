@@ -19,8 +19,15 @@ class GetClothes {
     }
   }
 
-  Future<dynamic> getSelectCloth(int shop, int lang, int id) async =>
-      await _api.getSelectCloth(shop, lang, id);
+  Future<dynamic> getSelectCloth(int shop, int lang, int id) async {
+    try {
+      return await _api.getSelectCloth(shop, lang, id);
+    } catch (e) {
+      throw DataBaseException();
+    }
+  }
 }
 
 class NoNetworkException implements Exception {}
+
+class DataBaseException implements Exception {}
