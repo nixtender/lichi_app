@@ -23,6 +23,9 @@ class ProductPage extends StatelessWidget {
   Product? product;
   int? id;
 
+  double photoWidth = 536;
+  double photoHeight = 715;
+
   final DataService _dataService = DataService();
   PageController pageController = PageController();
 
@@ -66,8 +69,10 @@ class ProductPage extends StatelessWidget {
             children: [
               Stack(
                 children: [
-                  SizedBox(
-                    height: 524,
+                  Container(
+                    height: MediaQuery.of(context).size.width *
+                        photoHeight /
+                        photoWidth,
                     child: PageView.builder(
                       controller: pageController,
                       physics: const BouncingScrollPhysics(),
@@ -77,7 +82,7 @@ class ProductPage extends StatelessWidget {
                             child: SizedBox(),
                           ),
                           // width: MediaQuery.of(context).size.width,
-                          // height: 260,
+                          // height: 524,
                           imageUrl: product!.photos[pageIndex].big,
                         );
                       },
@@ -145,7 +150,9 @@ class ProductPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                      height: 524,
+                      height: MediaQuery.of(context).size.width *
+                          photoHeight /
+                          photoWidth,
                       padding: EdgeInsets.symmetric(vertical: 16),
                       alignment: Alignment.bottomCenter,
                       child: Container(
