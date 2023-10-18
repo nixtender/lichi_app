@@ -308,7 +308,7 @@ class CatalogPage extends StatelessWidget {
                             return GestureDetector(
                               onTap: () {
                                 AutoRouter.of(context).push(ProductRoute(
-                                    product: state.products[index]));
+                                    product: state.products[index], id: null));
                               },
                               child:
                                   ProductItem(product: state.products[index]),

@@ -30,13 +30,9 @@ class _PurchaseItemState extends State<PurchaseItem> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        await apiService
-            .getSelectCloth(2, 1, widget.productBase.id)
-            .then((value) {
-          var prod = TransformProduct.transformSingleProduct(value);
-          AutoRouter.of(context).push(ProductRoute(product: prod));
-        });
+      onTap: () {
+        AutoRouter.of(context)
+            .push(ProductRoute(product: null, id: widget.productBase.id));
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 7),

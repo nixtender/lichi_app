@@ -6,6 +6,8 @@ import 'package:lichi_app/ui/bloc/basket/basket_bloc.dart';
 import 'package:lichi_app/ui/bloc/basket/basket_state.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_bloc.dart';
 import 'package:lichi_app/ui/bloc/catalog/catalog_state.dart';
+import 'package:lichi_app/ui/bloc/product/product_bloc.dart';
+import 'package:lichi_app/ui/bloc/product/product_state.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +38,9 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider<BasketBloc>(
             create: (context) => BasketBloc(BasketEmptyState()),
+          ),
+          BlocProvider<ProductBloc>(
+            create: (context) => ProductBloc(ProductEmptyState()),
           ),
         ],
         child: MaterialApp.router(

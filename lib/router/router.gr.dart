@@ -39,8 +39,8 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: ProductPage(
-          key: args.key,
-          product: args.product,
+          args.product,
+          args.id,
         ),
       );
     },
@@ -108,14 +108,14 @@ class CatalogRoute extends PageRouteInfo<void> {
 /// [ProductPage]
 class ProductRoute extends PageRouteInfo<ProductRouteArgs> {
   ProductRoute({
-    Key? key,
-    required Product product,
+    required Product? product,
+    required int? id,
     List<PageRouteInfo>? children,
   }) : super(
           ProductRoute.name,
           args: ProductRouteArgs(
-            key: key,
             product: product,
+            id: id,
           ),
           initialChildren: children,
         );
@@ -128,16 +128,16 @@ class ProductRoute extends PageRouteInfo<ProductRouteArgs> {
 
 class ProductRouteArgs {
   const ProductRouteArgs({
-    this.key,
     required this.product,
+    required this.id,
   });
 
-  final Key? key;
+  final Product? product;
 
-  final Product product;
+  final int? id;
 
   @override
   String toString() {
-    return 'ProductRouteArgs{key: $key, product: $product}';
+    return 'ProductRouteArgs{product: $product, id: $id}';
   }
 }
